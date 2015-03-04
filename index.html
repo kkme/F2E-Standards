@@ -5,7 +5,7 @@
     <meta content="width=device-width" name="viewport">
     <title>前端规范 | F2E-Standards.com</title>
     <meta content="前端, 规范" name="keywords">
-    <meta content="前端规范 | Front-End-Standards.com" name="description">
+    <meta content="前端工程规范 | http://yeesunday.github.io/F2E-Standards/" name="description">
     <meta content="no" name="apple-mobile-web-app-capable">
     <link rel="shortcut icon" href="/favicon.ico" />
     <link href="css/style.css" rel="stylesheet">
@@ -42,10 +42,13 @@
             <a href="#6responsiveweb">响应式 Web 规范</a>
           </li>
           <li>
-            <a href="#7">资源汇总</a>
+            <a href="#7">开发流程</a>
           </li>
           <li>
-            <a href="#8">参考数据</a>
+            <a href="#8">资源汇总</a>
+          </li>
+          <li>
+            <a href="#9">参考数据</a>
           </li>
         </ul>
       </nav>
@@ -86,25 +89,44 @@
 </table>
 
 ### 2. 项目规范
+* 1）代码的松耦合，高度模块化，将页面内的元素视为一个个模块，相互独立，尽量避免耦合过高的代码，从html,css,js三个层面都要考虑模块化。
+* 2）良好的注释。
+* 3）注意代码的弹性，在性能和弹性的选择上，一般情况下以弹性为优先考虑条件，在保证弹性的基础上，适当优化性能。
+* 4）严格按照规范编写代码。
 
 #### 2.1 项目结构
     --- 
-     |---- html/                  html //入口页包含在内
-     |---- js/                    JS //具体见JS细化结构                 
-     |---- css/                   CSS //具体见CSS细化结构
-     |---- img/                   img //图片资源
-     |---- lib/                   lib //用到的js库
+     |---- html/                   //入口页包含在内
+     |---- js/                     //具体见JS细化结构
+     |---- css/                    //具体见CSS细化结构
+     |---- img/                    //图片资源
+     |---- lib/                    //用到的js库
 
 #### 2.2 命名规范
 * 文件及文件夹: 全部英文小写字母+数字或连接符"`-` , `_` "，不可出现其他字符
 如：`../css/style.css, jquery.1.x.x.js` 
-* 文件：调用 `/libs` 文件需包含版本号，压缩文件需包含`min`关键词，其他插件则可不包含
-如：`/libs/jquery.1.9.1.js` `/libs/modernizr-1.7.min.js` `fileuploader.js` `plugins.js`
-* ID: [匈牙利命名法] & [小駝峰式命名法]  
-如：`firstName` `topBoxList` `footerCopyright`
-* Class: [减号连接符]
-如：`top-item` `main-box` `box-list-item-1`
-* 尽量使用语义明确的单词命名，避免 `left` `bottom` 等方位性的词语
+* JS 压缩文件需包含`min`关键词
+* JS 变量命名规范
+
+        // 类名：首字母大写，名词
+        ClassDefine
+
+        // 方法名：使用动词，或动名词结合，驼峰
+        defineFunctionName
+
+        // 变量名：与方法名类似，驼峰，对某些类型变量使用不同标识。
+        commonVariable // 普通变量
+        isBoolVariable // bool 类型变量，使用 is 开头
+        _privateVariable // 私有变量，使用 _ 开头
+        STATIC_VARIABLE // 常量，字母全部大写，中间使用 _ 分隔
+
+* CSS
+    * 为JavaScript预留钩子的命名, 尽量使用id属性，可以更快的获取到dom
+    * 仅处理样式的选择器应做到“尽量无ID、无层级、无标签”
+    * ID: [匈牙利命名法] & [小駝峰式命名法] 如：`firstName` `topBoxList` `footerCopyright`
+    * Class: [减号连接符] 如：`top-item` `main-box` `box-list-item-1`
+* 图片使用 `模块-类别-功能` 的方法命名
+
 
 #### 2.3 格式&编码
 * 文本文件： `.xxx` UTF-8_\(无BOM\)_ 编码
@@ -237,9 +259,6 @@ _其中，@require为可选项_
         background: transparent none repeat scroll 0 0 ;
     }
 
-#### 4.4 CSS嵌套规则
-嵌套不宜超过三层
-
 ### 5 JS 细化规范
 
 #### 5.1 JS 文件结构
@@ -252,7 +271,107 @@ _其中，@require为可选项_
 * 结束行需添加分号`;`
 * JS调试使用`console.log()`及`console.dir()`进行，避免使用弹出框，线上版需要注释所有调试代码
 
-##### 5.2 jQuery Plugin
+#### 5.2 书写规范
+    1、每行代码长度
+        每行长度最长 100 字符，若对长度没概念，可设定编辑器屏幕显示区域来达到控制目的。
+
+    2、空格使用
+        1）一元操作符前后没有空格，for example:
+        i++;
+        i--;
+
+        2）二元操作符前后使用一个空格，for example:
+            var myName = 'beile';
+
+    3、方法定义
+        1）括号前不留空格，')' 后使用一个空格，并紧跟 '{'，多个参数使用 ', ' 隔开，for example:
+        function getValue(firstParam, secondParam) {
+        // do something ...
+        }
+
+    4、条件控制
+        1）难以描述，请注意空格使用，for example:
+        // if 语句
+        if (condition) {
+        // do something...
+        } else if (condition) {
+        // do another thing...
+        } else {
+        // do something...
+        }
+
+        // for 语句
+        for (var i = 0; i < 10; i++) {
+        // do something...
+        }
+
+        // while 语句
+        while (condition) {
+        // do something...
+        }
+
+        // switch 语句
+        stitch (condition) {
+        case 'case1':
+        // do something...
+        case 'case2':
+        // do something...
+        default:
+        // do something...
+        }
+
+#### 5.3 大字符串的创建方式
+
+    不推荐使用 '+' 来拼接大字符串，for example:
+    var listHtml = '<ul class="all_item">' +
+        '<li class="item">first item</li>' +
+        '<li class="item">second item</li>' +
+        '</ul>';
+
+    通过使用数组来创建大字符串是更好的方式，for example:
+    var listHtml = [
+    '<ul class="all_item">',
+        '<li class="item">first item</li>',
+        '<li class="item">second item</li>',
+        '</ul>'
+    ].join(''); // 使用 jion 拼接
+
+#### 5.4 注释
+
+    1、文件头部注释：
+    包含版权信息或开源协议等，不做强制要求。for example:
+    //
+    // Licensed under the Apache License, Version 2.0 (the "License");
+    // you may not use this file except in compliance with the License.
+    // You may obtain a copy of the License at
+    //
+    //      http://www.apache.org/licenses/LICENSE-2.0
+    //
+
+    2、自定义 Class 注释：（可以使用多个 * 将注释包裹）for example:
+    /************************************************
+    *
+    * 类的功能介绍，简述类的使用方法和功能。
+    * @require: a.js
+    *           b.js // 依赖的 js 文件
+    * @author: 作者
+    * @create: 创建时间
+    * @modify: 最后修改时间，对于通用组件不做强制要求。但是对于业务代码，每次修改需写明负责人和时间。
+    *
+    *************************************************
+
+    3、方法的注释 for example:
+    /**
+    * 方法的功能介绍
+    * @param: {string} str
+    *          {object} options // 指明参数的类型
+    * @return: {string} str // 返回类型
+    * @author: 作者
+    * @create: 创建时间
+    * @modify: 最后修改时间
+    */
+
+#### 5.5 jQuery Plugin
 
 * IE对HTML5标签支持，以及浏览器特性检测：[Modernizr] & [html5shiv]
 * 定制&统一 浏览器的滚动条样式：[jquery-scroll] & [Lionbars]
@@ -272,7 +391,7 @@ _其中，@require为可选项_
 * 浮动话题泡：[jQuery grumble]
 * 旋转进度：[jQuery Knob]
 
-##### 5.3 JSON格式规范
+#### 5.6 JSON格式规范
 * 所有的属性名必须在双引号内。字符类型的属性值必须使用双引号，其它类型值（如布尔或数字）不应该使用双引号。
 * 以结构层次组织数据
 
@@ -352,10 +471,19 @@ _其中，@require为可选项_
       <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <![endif]-->
 
-### 7 资源汇总
-#### 7.1 for Mac OS
+### 7 开发流程
+#### 7.1 分工安排
+* 1）分工原则为公共组件（包括common.css和public.JS）一人维护，各栏目其他人负责，每个栏目正常情况下一人负责，要详细写明注释，如果多人合作，维护的人员注意添加注释信息，具体注释细则，详见注释规则；
+* 2）VD设计完设计图后，先和交互设计师沟通，确定设计可行，然后先将设计图给公共组件维护者，看设计图是否需要提取公共组件，然后再提交给相应栏目的WD。如果有公共组件要提取，公共组件维护者需对栏目WD说明。
+* 3）如果确定没有公共组件需提取，交互设计师直接和各栏目的WD交流，对照着VD的设计图进行说明，WD完成需求；
+* 4）WD在制作页面的时候，需先去common文件中查询是否已经存在设计图中的组件，如果有，直接调用；没有，则在app.css和app.JS中添加相应的代码。
+* 5）WD在制作过程中，发现有高度重用的模块，却未被加入到公共组件中，需向公共组件维护人进行说明，然后工作组件维护人决定是否添加该组件。如果确定添加，则向WD们说明添加了新组件，让WD们检查之前是否添加了类似组件，统一更新成新组件的用法，删除之前自定义的css和js。虽然麻烦，但始终把可维护性放在首位。
+* 6）公共组件维护者的公共组件说明文档，需图片和说明文字配套，方便阅读。
+
+### 8 资源汇总
+#### 8.1 for Mac OS
 *for more app detial check -> [IUSETHIS](http://osx.iusethis.com/user/hzlzh 'App pack') //Todo*
-#### 7.2 前端相关工具
+#### 8.2 前端相关工具
 
 * 编辑器：[WebStorm] / [Sublime Text 2]
 * 命令行：[iTerm2]
@@ -377,7 +505,7 @@ _其中，@require为可选项_
 * 多浏览器Cookie管理：[Cookie]
 * 图片素材收集：[Sparkbox] / [Pixa]
 
-#### 7.3 其他效率工具
+#### 8.3 其他效率工具
 
 * 快速启动及切换app：[Alfred]
 * 剪切板历史记录：[Alfred]*(Fretures -> Clipboard)*
@@ -387,18 +515,18 @@ _其中，@require为可选项_
 * 语言文档和快捷词扩展：[Dash]
 * 时间中断提醒：[BreakTime]
 
-#### 7.4 其他收集
+#### 8.4 其他收集
 * Firefox 扩展收藏集 -> [Firefox Add-ons collections]
 * Chrome 扩展 -> 待添加
 * Sublime Text 2 技巧  -> [ST2 资源技巧汇总]
 
-#### 7.5 相关技巧
+#### 8.5 相关技巧
 * [各浏览器的缓存清除方法]  
 * [测试技巧Gmail 添加词缀 .+ 获得多个邮件的方法]  
 * [关于Mac Win Linux跨系统传文件，文件名乱码的解决方案]  
 * [技术团队"路由代理"解决方案和使用须知]
 
-### 8 参考数据
+### 9 参考数据
 * [国内 PC 浏览器分布情况]
 * [国内 Mobile 浏览器分布情况]
 
